@@ -6,4 +6,6 @@
     <string name="password">Kata Sandi</string>
     <string name="login">Masuk</string>
     <string name="desc_login">Tombol Masuk</string>
+    <string name="tv_splash">Dispusipda\nKota Sukabumi</string>
+    <string name="desc_logo">Logo Aplikasi</string>
 </resources>
