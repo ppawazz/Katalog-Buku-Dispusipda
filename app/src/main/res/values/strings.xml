@@ -8,4 +8,8 @@
     <string name="desc_login">Tombol Masuk</string>
     <string name="tv_splash">Dispusipda\nKota Sukabumi</string>
     <string name="desc_logo">Logo Aplikasi</string>
+    <string name="welcome_text">SELAMAT DATANG!\n\nKatalog Perpustakaan\nDispusipda Kota Sukabumi</string>
+    <string name="login_text">Silahkan masukan akun untuk mengelola koleksi buku.</string>
+    <string name="btn_text_catalog">Katalog Buku</string>
+    <string name="btn_text_admin">Admin</string>
 </resources>

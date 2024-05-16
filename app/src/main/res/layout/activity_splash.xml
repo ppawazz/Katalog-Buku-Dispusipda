@@ -23,6 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="230dp"
+        android:fontFamily="@font/overlock_sc"
         android:gravity="center"
         android:text="@string/tv_splash"
         android:textSize="25sp"
