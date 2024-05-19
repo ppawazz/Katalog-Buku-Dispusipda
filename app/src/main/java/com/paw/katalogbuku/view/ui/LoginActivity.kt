@@ -2,6 +2,7 @@ package com.paw.katalogbuku.view.ui
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -27,6 +28,10 @@ class LoginActivity : AppCompatActivity() {
             insets
         }
         playAnimation()
+        binding.btnLogin.setOnClickListener {
+            val toMain = Intent(this@LoginActivity, MainActivity::class.java)
+            startActivity(toMain)
+        }
     }
 
     private fun playAnimation() {
