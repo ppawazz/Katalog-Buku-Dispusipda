@@ -26,10 +26,17 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        bookAdapter = ListBookAdapter()
+        val isAdmin = intent.getBooleanExtra("isAdmin", false)
+        bookAdapter = ListBookAdapter(isAdmin, ::editBook, ::deleteBook)
         binding.rvBook.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = bookAdapter
+        }
+
+        if (isAdmin) {
+            binding.fabAdd.show()
+        } else {
+            binding.fabAdd.hide()
         }
 
         val bookList = listOf(
@@ -39,5 +46,21 @@ class MainActivity : AppCompatActivity() {
         )
 
         bookAdapter.submitList(bookList)
+
+        binding.fabAdd.setOnClickListener {
+            // Implement add book logic here
+        }
+    }
+
+    private fun editBook(book: BookModel) {
+        // Implement edit book logic here
+    }
+
+    private fun deleteBook(book: BookModel) {
+        // Implement delete book logic here
+        val updatedList = bookAdapter.currentList.toMutableList().apply {
+            remove(book)
+        }
+        bookAdapter.submitList(updatedList)
     }
 }

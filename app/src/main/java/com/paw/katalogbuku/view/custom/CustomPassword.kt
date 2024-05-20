@@ -32,7 +32,7 @@ class CustomPassword : AppCompatEditText {
             }
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if (s.toString().length < 8) {
+                if (s.toString().length < 5) {
                     setError(context.getString(R.string.pass_check), null)
                 } else {
                     error = null

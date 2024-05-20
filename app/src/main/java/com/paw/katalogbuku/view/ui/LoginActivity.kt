@@ -12,6 +12,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.paw.katalogbuku.R
 import com.paw.katalogbuku.databinding.ActivityLoginBinding
+import com.paw.katalogbuku.utils.showToast
 
 class LoginActivity : AppCompatActivity() {
 
@@ -28,9 +29,24 @@ class LoginActivity : AppCompatActivity() {
             insets
         }
         playAnimation()
+        setupAction()
+    }
+
+    private fun setupAction() {
         binding.btnLogin.setOnClickListener {
-            val toMain = Intent(this@LoginActivity, MainActivity::class.java)
-            startActivity(toMain)
+            val email = binding.edLoginEmail.text.toString()
+            val password = binding.edLoginPassword.text.toString()
+
+            if (email == "admin@gmail.com" && password == "admin") {
+                val toMain = Intent(this, MainActivity::class.java)
+                toMain.flags =
+                    Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                toMain.putExtra("isAdmin", true)
+                startActivity(toMain)
+                finish()
+            } else {
+                showToast("Email dan Kata Sandi salah")
+            }
         }
     }
 

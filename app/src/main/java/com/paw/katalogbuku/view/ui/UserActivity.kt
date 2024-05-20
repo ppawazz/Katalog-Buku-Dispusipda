@@ -23,6 +23,11 @@ class UserActivity : AppCompatActivity() {
             insets
         }
 
+        binding.btnCatalog.setOnClickListener {
+            val toMain = Intent(this@UserActivity, MainActivity::class.java)
+            startActivity(toMain)
+        }
+
         binding.btnLoginAdmin.setOnClickListener {
             val toLogin = Intent(this@UserActivity, LoginActivity::class.java)
             startActivity(toLogin)
