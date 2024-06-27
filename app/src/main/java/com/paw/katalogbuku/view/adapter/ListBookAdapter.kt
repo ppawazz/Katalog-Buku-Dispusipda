@@ -1,5 +1,6 @@
 package com.paw.katalogbuku.view.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.paw.katalogbuku.databinding.ItemBookBinding
 import com.paw.katalogbuku.model.remote.response.BookItem
+import com.paw.katalogbuku.view.ui.DetailActivity
 
 class ListBookAdapter(
     private val isAdmin: Boolean,
@@ -55,6 +57,12 @@ class ListBookAdapter(
                 } else {
                     btnEdit.visibility = View.GONE
                     btnDelete.visibility = View.GONE
+                }
+
+                itemView.setOnClickListener {
+                    val intent = Intent(itemView.context, DetailActivity::class.java)
+                    intent.putExtra(DetailActivity.BOOK_ITEM, book)
+                    itemView.context.startActivity(intent)
                 }
             }
         }

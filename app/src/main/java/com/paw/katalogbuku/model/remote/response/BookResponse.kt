@@ -1,7 +1,10 @@
 package com.paw.katalogbuku.model.remote.response
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class ApiResponse(
 	@field:SerializedName("payload")
 	val payload: List<BookItem>,
@@ -11,8 +14,9 @@ data class ApiResponse(
 
 	@field:SerializedName("message")
 	val message: String
-)
+) : Parcelable
 
+@Parcelize
 data class BookItem(
 	@field:SerializedName("cover")
 	val cover: String,
@@ -34,4 +38,4 @@ data class BookItem(
 
 	@field:SerializedName("title")
 	val title: String
-)
+) : Parcelable

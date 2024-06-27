@@ -9,9 +9,6 @@ interface ApiService {
     @GET("books")
     suspend fun getAllBooks(): ApiResponse
 
-//    @GET("books")
-//    suspend fun getAllBooks(): ApiResponse
-//
 //    @POST("books/addbooks")
 //    suspend fun postBook(
 //        @Body request: BookRequest
