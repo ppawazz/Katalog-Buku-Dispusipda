@@ -49,11 +49,12 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation ("androidx.activity:activity-ktx:1.9.0")
     //livedata
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.0")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.2")
 
     //viewmodel
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.2")
 
     //retrofit, OkHttp
     implementation("com.squareup.retrofit2:retrofit:2.9.0")

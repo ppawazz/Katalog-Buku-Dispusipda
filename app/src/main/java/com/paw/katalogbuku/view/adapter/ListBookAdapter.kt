@@ -8,27 +8,26 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.paw.katalogbuku.databinding.ItemBookBinding
-import com.paw.katalogbuku.model.local.BookModel
+import com.paw.katalogbuku.model.remote.response.BookResponse
 
 class ListBookAdapter(
     private val isAdmin: Boolean,
-    private val onEditClick: (BookModel) -> Unit,
-    private val onDeleteClick: (BookModel) -> Unit
-) : ListAdapter<BookModel, ListBookAdapter.MyViewHolder>(DIFF_CALLBACK) {
+    private val onEditClick: (BookResponse) -> Unit,
+    private val onDeleteClick: (BookResponse) -> Unit
+) : ListAdapter<BookResponse, ListBookAdapter.MyViewHolder>(DIFF_CALLBACK) {
     class MyViewHolder(private val binding: ItemBookBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(bookItem: BookModel,
+        fun bind(bookItem: BookResponse,
                  isAdmin: Boolean,
-                 onEditClick: (BookModel) -> Unit,
-                 onDeleteClick: (BookModel) -> Unit) {
+                 onEditClick: (BookResponse) -> Unit,
+                 onDeleteClick: (BookResponse) -> Unit) {
             binding.apply {
                 Glide.with(itemView.context)
-                    .load(bookItem.photo)
+                    .load(bookItem.cover)
                     .centerCrop()
                     .into(ivItemPhoto)
                 tvItemName.text = bookItem.title
                 tvItemAuthor.text = bookItem.author
-                tvItemDesc.text = bookItem.desc
                 if (isAdmin) {
                     btnEdit.visibility = View.VISIBLE
                     btnDelete.visibility = View.VISIBLE
@@ -56,12 +55,12 @@ class ListBookAdapter(
     }
 
     companion object {
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<BookModel>() {
-            override fun areItemsTheSame(oldItem: BookModel, newItem: BookModel): Boolean {
-                return oldItem == newItem
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<BookResponse>() {
+            override fun areItemsTheSame(oldItem: BookResponse, newItem: BookResponse): Boolean {
+                return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: BookModel, newItem: BookModel): Boolean {
+            override fun areContentsTheSame(oldItem: BookResponse, newItem: BookResponse): Boolean {
                 return oldItem == newItem
             }
         }
