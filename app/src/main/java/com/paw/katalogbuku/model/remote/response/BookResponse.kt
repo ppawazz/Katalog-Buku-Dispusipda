@@ -3,37 +3,35 @@ package com.paw.katalogbuku.model.remote.response
 import com.google.gson.annotations.SerializedName
 
 data class ApiResponse(
+	@field:SerializedName("payload")
+	val payload: List<BookItem>,
 
 	@field:SerializedName("success")
-	val success: Boolean? = null,
-
-	@field:SerializedName("payload")
-	val payload: List<BookResponse>? = null,
+	val success: Boolean,
 
 	@field:SerializedName("message")
-	val message: String? = null
+	val message: String
 )
 
-data class BookResponse(
-
-	@field:SerializedName("_id")
-	val id: String? = null,
-
+data class BookItem(
 	@field:SerializedName("cover")
-	val cover: String? = null,
-
-	@field:SerializedName("title")
-	val title: String? = null,
-
-	@field:SerializedName("author")
-	val author: String? = null,
-
-	@field:SerializedName("publisher")
-	val publisher: String? = null,
+	val cover: String,
 
 	@field:SerializedName("pages")
-	val pages: Int? = null,
+	val pages: Int,
+
+	@field:SerializedName("author")
+	val author: String,
 
 	@field:SerializedName("__v")
-	val version: Int? = null
+	val v: Int,
+
+	@field:SerializedName("publisher")
+	val publisher: String,
+
+	@field:SerializedName("_id")
+	val id: String,
+
+	@field:SerializedName("title")
+	val title: String
 )

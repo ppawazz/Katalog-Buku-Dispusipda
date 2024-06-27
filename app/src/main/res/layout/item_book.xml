@@ -2,68 +2,55 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cv_item"
+    android:id="@+id/cvItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="10dp"
-    android:layout_marginEnd="10dp"
-    android:orientation="vertical"
-    app:cardCornerRadius="5dp"
-    app:cardMaxElevation="5dp"
+    android:layout_marginTop="2dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginStart="8dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp"
     app:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:ignore="MissingConstraints">
+        android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/iv_item_photo"
+            android:id="@+id/ivItemPhoto"
             android:layout_width="100dp"
-            android:layout_height="120dp"
-            android:layout_margin="15dp"
+            android:layout_height="140dp"
+            android:layout_margin="8dp"
             android:scaleType="centerCrop"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             tools:src="@tools:sample/avatars" />
 
         <TextView
-            android:id="@+id/tv_item_name"
-            android:layout_width="wrap_content"
+            android:id="@+id/tvItemTitle"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="6dp"
-            android:text="Nama Buku"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@id/iv_item_photo"
-            app:layout_constraintTop_toTopOf="@id/iv_item_photo" />
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="15dp"
+            android:text="Book Title"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivItemPhoto"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_item_author"
-            android:layout_width="wrap_content"
+            android:id="@+id/tvItemAuthor"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:text="Nama Penulis"
-            android:textSize="15sp"
-            app:layout_constraintStart_toStartOf="@id/tv_item_name"
-            app:layout_constraintTop_toBottomOf="@id/tv_item_name" />
-
-        <TextView
-            android:id="@+id/tv_item_desc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:ellipsize="end"
-            android:maxLines="5"
-            android:text="Description"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@id/tv_item_author"
-            app:layout_constraintTop_toBottomOf="@id/tv_item_author" />
+            android:layout_marginTop="4dp"
+            android:text="Author"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tvItemTitle"
+            app:layout_constraintTop_toBottomOf="@id/tvItemTitle" />
 
         <ImageButton
-            android:id="@+id/btn_delete"
+            android:id="@+id/btnDelete"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginTop="8dp"
@@ -74,15 +61,14 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
-            android:id="@+id/btn_edit"
+            android:id="@+id/btnEdit"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginTop="8dp"
             android:src="@drawable/ic_edit"
             android:visibility="gone"
-            app:layout_constraintEnd_toStartOf="@id/btn_delete"
+            app:layout_constraintEnd_toStartOf="@id/btnDelete"
             app:layout_constraintTop_toTopOf="parent" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>

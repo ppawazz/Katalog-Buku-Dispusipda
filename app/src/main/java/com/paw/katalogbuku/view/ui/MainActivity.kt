@@ -2,16 +2,16 @@ package com.paw.katalogbuku.view.ui
 
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.paw.katalogbuku.R
 import com.paw.katalogbuku.databinding.ActivityMainBinding
-import com.paw.katalogbuku.model.remote.response.BookResponse
+import com.paw.katalogbuku.model.remote.response.BookItem
 import com.paw.katalogbuku.utils.ResultState
 import com.paw.katalogbuku.view.adapter.ListBookAdapter
 import com.paw.katalogbuku.viewmodel.BookViewModel
@@ -21,109 +21,87 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var bookAdapter: ListBookAdapter
-    private val bookViewModel: BookViewModel by viewModels { ViewModelFactory.getInstance(this) }
-    private var isAdmin: Boolean = false
+    private val bookViewModel: BookViewModel by viewModels {
+        ViewModelFactory.getInstance(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        enableEdgeToEdge()
         setContentView(binding.root)
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        isAdmin = intent.getBooleanExtra("isAdmin", false)
         setupUI()
         setupRecyclerView()
-        setupObservers()
-
-        // Memuat data buku
-        bookViewModel.getAllBooks()
+        observeData()
     }
 
     private fun setupUI() {
         with(binding) {
-            searchView.setupWithSearchBar(searchBar)
-            searchView.editText.setOnEditorActionListener { _, _, _ ->
-                searchBar.setText(searchView.text.toString())  // Menggunakan metode setText
-                searchView.hide()
-                Toast.makeText(this@MainActivity, searchView.text, Toast.LENGTH_SHORT).show()
-                false
-            }
-
+            val isAdmin = intent.getBooleanExtra("isAdmin", false)
             if (isAdmin) {
                 fabAdd.show()
-                fabAdd.setOnClickListener {
-                    // Implement add book logic here
-                    // Contoh: startActivity(Intent(this@MainActivity, AddBookActivity::class.java))
-                }
             } else {
                 fabAdd.hide()
+            }
+
+            fabAdd.setOnClickListener {
+                // Implement add book logic here
+            }
+
+            searchView.setupWithSearchBar(searchBar)
+            searchView.editText.setOnEditorActionListener { textView, actionId, _ ->
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    val query = textView.text.toString()
+                    bookAdapter.filter(query)
+                    searchView.hide()
+                    return@setOnEditorActionListener true
+                }
+                false
             }
         }
     }
 
-
     private fun setupRecyclerView() {
-        bookAdapter = ListBookAdapter(isAdmin, ::editBook, ::deleteBook)
+        bookAdapter = ListBookAdapter(
+            isAdmin = intent.getBooleanExtra("isAdmin", false),
+            onEditClick = ::editBook,
+            onDeleteClick = ::deleteBook
+        )
         binding.rvBook.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = bookAdapter
         }
     }
 
-    private fun setupObservers() {
-        bookViewModel.getAllBooks().observe(this) { result ->
+    private fun observeData() {
+        bookViewModel.getAllBooks().observe(this, Observer { result ->
             when (result) {
                 is ResultState.Loading -> {
                     binding.pbMain.visibility = View.VISIBLE
                 }
                 is ResultState.Success -> {
                     binding.pbMain.visibility = View.GONE
-                    bookAdapter.submitList(result.data)
+                    bookAdapter.submitFullList(result.data)
                 }
                 is ResultState.Error -> {
                     binding.pbMain.visibility = View.GONE
                     Toast.makeText(this, result.error, Toast.LENGTH_SHORT).show()
                 }
             }
-        }
+        })
     }
 
-    private fun editBook(book: BookResponse) {
-        if (isAdmin) {
-            // Buka Activity atau Dialog untuk mengedit buku
-            // Contoh: startActivity(Intent(this, EditBookActivity::class.java).putExtra("BOOK_ID", book.id))
-        } else {
-            Toast.makeText(this, "You don't have permission to edit this book", Toast.LENGTH_SHORT).show()
-        }
+    private fun editBook(book: BookItem) {
+        // Implement edit book logic here
     }
 
-    private fun deleteBook(book: BookResponse) {
-        if (isAdmin) {
-            bookViewModel.deleteBook(book.id).observe(this) { result ->
-                when (result) {
-                    is ResultState.Loading -> {
-                        binding.pbMain.visibility = View.VISIBLE
-                    }
-                    is ResultState.Success -> {
-                        binding.pbMain.visibility = View.GONE
-                        Toast.makeText(this, "Book deleted successfully", Toast.LENGTH_SHORT).show()
-                        // Refresh data
-                        bookViewModel.getAllBooks()
-                    }
-                    is ResultState.Error -> {
-                        binding.pbMain.visibility = View.GONE
-                        Toast.makeText(this, result.error, Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-        } else {
-            Toast.makeText(this, "You don't have permission to delete this book", Toast.LENGTH_SHORT).show()
-        }
+    private fun deleteBook(book: BookItem) {
+        // Implement delete book logic here
     }
 }

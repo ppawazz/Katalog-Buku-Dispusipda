@@ -8,11 +8,11 @@ class BookViewModel(private val repository: BookRepository) : ViewModel() {
 
     fun getAllBooks() = repository.getAllBooks()
 
-    fun getBookById(id: String) = repository.getBookById(id)
-
-    fun addBook(bookRequest: BookRequest) = repository.postBook(bookRequest)
-
-    fun updateBook(id: String, bookRequest: BookRequest) = repository.updateBook(id, bookRequest)
-
-    fun deleteBook(id: String) = repository.deleteBook(id)
+//    fun getBookById(id: String) = repository.getBookById(id)
+//
+//    fun addBook(bookRequest: BookRequest) = repository.postBook(bookRequest)
+//
+//    fun updateBook(id: String, bookRequest: BookRequest) = repository.updateBook(id, bookRequest)
+//
+//    fun deleteBook(id: String) = repository.deleteBook(id)
 }
