@@ -1,6 +1,8 @@
 package com.paw.katalogbuku.view.ui
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
@@ -10,6 +12,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.paw.katalogbuku.R
 import com.paw.katalogbuku.databinding.ActivityMainBinding
 import com.paw.katalogbuku.model.remote.response.BookItem
 import com.paw.katalogbuku.utils.ResultState
@@ -54,15 +57,18 @@ class MainActivity : AppCompatActivity() {
                 // Implement add book logic here
             }
 
-            searchView.setupWithSearchBar(searchBar)
-            searchView.editText.setOnEditorActionListener { textView, actionId, _ ->
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    val query = textView.text.toString()
-                    bookAdapter.filter(query)
-                    searchView.hide()
-                    return@setOnEditorActionListener true
+            searchEditText.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    bookAdapter.filter(s.toString())
+                    clearQueryButton.visibility = if (s.isNullOrEmpty()) View.GONE else View.VISIBLE
                 }
-                false
+                override fun afterTextChanged(s: Editable?) {}
+            })
+
+            clearQueryButton.setOnClickListener {
+                searchEditText.text.clear()
+                clearQueryButton.visibility = View.GONE
             }
         }
     }
