@@ -38,8 +38,8 @@ class DetailActivity : AppCompatActivity() {
         with(binding) {
             tvDetailTitle.text = book.title
             tvDetailAuthor.text = book.author
-            tvDetailPublisher.text = book.publisher
-            tvDetailPages.text = book.pages.toString()
+            tvDetailPublisher.text = getString(R.string.publisher_template, book.publisher)
+            tvDetailPages.text = getString(R.string.pages_template, book.pages.toString())
             // If you have image URL and you want to load it
             // Glide.with(this@DetailActivity).load(book.cover).into(ivDetailPhoto)
         }

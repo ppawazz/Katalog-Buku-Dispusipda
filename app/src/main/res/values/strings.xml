@@ -12,4 +12,6 @@
     <string name="login_text">Silahkan masukan akun untuk mengelola koleksi buku.</string>
     <string name="btn_text_catalog">Katalog Buku</string>
     <string name="btn_text_admin">Admin</string>
+    <string name="publisher_template">Penerbit: %1$s</string>
+    <string name="pages_template">Jumlah Halaman: %1$s</string>
 </resources>
