@@ -1,6 +1,7 @@
 <resources>
     <color name="cardbg">#353535</color>
     <color name="cardstroke">#424141</color>
+    <color name="clearquery">#FFFFFF</color>
     <color name="md_theme_primary">#B1D18A</color>
     <color name="md_theme_onPrimary">#1F3701</color>
     <color name="md_theme_primaryContainer">#354E16</color>
