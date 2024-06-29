@@ -1,5 +1,6 @@
 package com.paw.katalogbuku.view.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -54,7 +55,8 @@ class MainActivity : AppCompatActivity() {
             }
 
             fabAdd.setOnClickListener {
-                // Implement add book logic here
+                val toAddBook = Intent(this@MainActivity, AddBookActivity::class.java)
+                startActivity(toAddBook)
             }
 
             searchEditText.addTextChangedListener(object : TextWatcher {
