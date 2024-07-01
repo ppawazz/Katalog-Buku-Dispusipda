@@ -17,11 +17,11 @@ class ListBookAdapter(
     private val onDeleteClick: (BookItem) -> Unit
 ) : ListAdapter<BookItem, ListBookAdapter.BookViewHolder>(BookDiffCallback()) {
 
-    private var fullBookList: List<BookItem> = emptyList()
+    private var fullBookList: MutableList<BookItem> = mutableListOf()
 
     fun submitFullList(books: List<BookItem>) {
-        fullBookList = books
-        submitList(books)
+        fullBookList = books.toMutableList()
+        submitList(fullBookList)
     }
 
     fun filter(query: String) {
@@ -31,6 +31,12 @@ class ListBookAdapter(
             fullBookList.filter { it.title.contains(query, ignoreCase = true) }
         }
         submitList(filteredList)
+    }
+
+    fun removeBook(book: BookItem) {
+        fullBookList.remove(book)
+        submitList(fullBookList)
+        println("Book removed: ${book.title}") // Debugging log
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
@@ -45,7 +51,6 @@ class ListBookAdapter(
     inner class BookViewHolder(private val binding: ItemBookBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(book: BookItem) {
             with(binding) {
-                // Bind book data to UI components
                 tvItemTitle.text = book.title
                 tvItemAuthor.text = book.author
 
@@ -70,7 +75,7 @@ class ListBookAdapter(
 
     class BookDiffCallback : DiffUtil.ItemCallback<BookItem>() {
         override fun areItemsTheSame(oldItem: BookItem, newItem: BookItem): Boolean = oldItem.id == newItem.id
-
         override fun areContentsTheSame(oldItem: BookItem, newItem: BookItem): Boolean = oldItem == newItem
     }
 }
+

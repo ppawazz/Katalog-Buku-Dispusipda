@@ -5,9 +5,9 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -79,7 +79,7 @@ class MainActivity : AppCompatActivity() {
         bookAdapter = ListBookAdapter(
             isAdmin = intent.getBooleanExtra("isAdmin", false),
             onEditClick = ::editBook,
-            onDeleteClick = ::deleteBook
+            onDeleteClick = ::confirmDeleteBook
         )
         binding.rvBook.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
@@ -106,10 +106,63 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun editBook(book: BookItem) {
-        // Implement edit book logic here
+        val intent = Intent(this, EditBookActivity::class.java)
+        intent.putExtra("book", book)
+        startActivityForResult(intent, EDIT_BOOK_REQUEST_CODE)
+    }
+
+    private fun confirmDeleteBook(book: BookItem) {
+        AlertDialog.Builder(this)
+            .setTitle("Konfirmasi Hapus")
+            .setMessage("Apakah Anda yakin ingin menghapus buku ini?")
+            .setPositiveButton("Yes") { _, _ -> deleteBook(book) }
+            .setNegativeButton("No", null)
+            .show()
     }
 
     private fun deleteBook(book: BookItem) {
-        // Implement delete book logic here
+        bookViewModel.deleteBook(book.id).observe(this, Observer { result ->
+            when (result) {
+                is ResultState.Loading -> {
+                    // Show loading indicator if needed
+                }
+                is ResultState.Success -> {
+                    Toast.makeText(this, "Book deleted successfully", Toast.LENGTH_SHORT).show()
+                    refreshBookList()
+                }
+                is ResultState.Error -> {
+                    Toast.makeText(this, result.error, Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
+    }
+
+    private fun refreshBookList() {
+        bookViewModel.getAllBooks().observe(this, Observer { result ->
+            when (result) {
+                is ResultState.Loading -> {
+                    binding.pbMain.visibility = View.VISIBLE
+                }
+                is ResultState.Success -> {
+                    binding.pbMain.visibility = View.GONE
+                    bookAdapter.submitFullList(result.data)
+                }
+                is ResultState.Error -> {
+                    binding.pbMain.visibility = View.GONE
+                    Toast.makeText(this, result.error, Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == EDIT_BOOK_REQUEST_CODE && resultCode == RESULT_OK) {
+            refreshBookList()
+        }
+    }
+
+    companion object {
+        private const val EDIT_BOOK_REQUEST_CODE = 1
     }
 }
