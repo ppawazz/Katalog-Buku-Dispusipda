@@ -13,13 +13,12 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.paw.katalogbuku.R
 import com.paw.katalogbuku.databinding.ActivityMainBinding
 import com.paw.katalogbuku.model.remote.response.BookItem
 import com.paw.katalogbuku.utils.ResultState
 import com.paw.katalogbuku.view.adapter.ListBookAdapter
-import com.paw.katalogbuku.viewmodel.BookViewModel
-import com.paw.katalogbuku.viewmodel.ViewModelFactory
+import com.paw.katalogbuku.view.viewmodel.BookViewModel
+import com.paw.katalogbuku.view.viewmodel.ViewModelFactory
 
 class MainActivity : AppCompatActivity() {
 
@@ -115,8 +114,8 @@ class MainActivity : AppCompatActivity() {
         AlertDialog.Builder(this)
             .setTitle("Konfirmasi Hapus")
             .setMessage("Apakah Anda yakin ingin menghapus buku ini?")
-            .setPositiveButton("Yes") { _, _ -> deleteBook(book) }
-            .setNegativeButton("No", null)
+            .setPositiveButton("Ya") { _, _ -> deleteBook(book) }
+            .setNegativeButton("Tidak", null)
             .show()
     }
 
@@ -155,6 +154,7 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    @Deprecated("This method has been deprecated in favor of using the Activity Result API\n      which brings increased type safety via an {@link ActivityResultContract} and the prebuilt\n      contracts for common intents available in\n      {@link androidx.activity.result.contract.ActivityResultContracts}, provides hooks for\n      testing, and allow receiving results in separate, testable classes independent from your\n      activity. Use\n      {@link #registerForActivityResult(ActivityResultContract, ActivityResultCallback)}\n      with the appropriate {@link ActivityResultContract} and handling the result in the\n      {@link ActivityResultCallback#onActivityResult(Object) callback}.")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == EDIT_BOOK_REQUEST_CODE && resultCode == RESULT_OK) {

@@ -1,4 +1,4 @@
-package com.paw.katalogbuku.viewmodel
+package com.paw.katalogbuku.view.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.paw.katalogbuku.model.BookRepository

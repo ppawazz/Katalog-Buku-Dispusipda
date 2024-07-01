@@ -16,8 +16,8 @@ import com.paw.katalogbuku.R
 import com.paw.katalogbuku.databinding.ActivityEditBookBinding
 import com.paw.katalogbuku.model.remote.response.BookItem
 import com.paw.katalogbuku.utils.ResultState
-import com.paw.katalogbuku.viewmodel.BookViewModel
-import com.paw.katalogbuku.viewmodel.ViewModelFactory
+import com.paw.katalogbuku.view.viewmodel.BookViewModel
+import com.paw.katalogbuku.view.viewmodel.ViewModelFactory
 
 class EditBookActivity : AppCompatActivity() {
 
