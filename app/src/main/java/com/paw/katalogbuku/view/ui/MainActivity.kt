@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
 
             fabAdd.setOnClickListener {
                 val toAddBook = Intent(this@MainActivity, AddBookActivity::class.java)
-                startActivity(toAddBook)
+                startActivityForResult(toAddBook, ADD_BOOK_REQUEST_CODE)
             }
 
             searchEditText.addTextChangedListener(object : TextWatcher {
@@ -159,10 +159,13 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == EDIT_BOOK_REQUEST_CODE && resultCode == RESULT_OK) {
             refreshBookList()
+        } else if (requestCode == ADD_BOOK_REQUEST_CODE && resultCode == RESULT_OK) {
+            refreshBookList()
         }
     }
 
     companion object {
         private const val EDIT_BOOK_REQUEST_CODE = 1
+        private const val ADD_BOOK_REQUEST_CODE = 2
     }
 }

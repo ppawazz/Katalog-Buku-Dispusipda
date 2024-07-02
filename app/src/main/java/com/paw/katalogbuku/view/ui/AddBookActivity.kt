@@ -161,7 +161,8 @@ class AddBookActivity : AppCompatActivity() {
                     is ResultState.Success -> {
                         binding.progressIndicator.isVisible = false
                         showToast(response.data.message)
-                        finish() // Go back to previous screen
+                        setResult(RESULT_OK)  // Set result to indicate success
+                        finish()  // Go back to previous screen
                     }
                 }
             }
