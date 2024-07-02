@@ -1,6 +1,7 @@
 package com.paw.katalogbuku.view.ui
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -31,5 +32,20 @@ class UserActivity : AppCompatActivity() {
             val toLogin = Intent(this@UserActivity, LoginActivity::class.java)
             startActivity(toLogin)
         }
+
+        // Add click listeners for Instagram ImageView and TextView
+        binding.ivIg.setOnClickListener {
+            openInstagramProfile()
+        }
+
+        binding.tvDinas.setOnClickListener {
+            openInstagramProfile()
+        }
+    }
+
+    private fun openInstagramProfile() {
+        val instagramUrl = "https://www.instagram.com/dispusipda_kotasmi"
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(instagramUrl))
+        startActivity(intent)
     }
 }

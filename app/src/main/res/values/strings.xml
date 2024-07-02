@@ -53,4 +53,5 @@
     <string name="item_penulis">Penulis Buku</string>
     <string name="cd_del_book">Ini adalah tombol hapus buku</string>
     <string name="cd_edit_book">Ini adalah tombol mengedit buku</string>
+    <string name="dinas_name">Dinas Perpustakaan dan Arsip</string>
 </resources>

@@ -43,4 +43,28 @@
         app:layout_constraintStart_toStartOf="@id/btn_catalog"
         app:layout_constraintTop_toBottomOf="@id/btn_catalog" />
 
+    <ImageView
+        android:id="@+id/iv_ig"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="5dp"
+        android:src="@drawable/ic_ig"
+        app:layout_constraintBottom_toBottomOf="@id/tv_dinas"
+        app:layout_constraintEnd_toStartOf="@id/tv_dinas"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_dinas" />
+
+    <TextView
+        android:id="@+id/tv_dinas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="100dp"
+        android:text="@string/dinas_name"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_ig"
+        app:layout_constraintTop_toBottomOf="@id/btn_login_admin" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
