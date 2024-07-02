@@ -149,7 +149,7 @@
             android:layout_height="match_parent"
             android:gravity="top|start"
             android:hint="Pages"
-            android:inputType="textMultiLine"
+            android:inputType="number"
             android:maxLines="5"
             android:textAlignment="viewStart" />
     </com.google.android.material.textfield.TextInputLayout>

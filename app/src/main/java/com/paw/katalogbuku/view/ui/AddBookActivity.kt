@@ -1,18 +1,23 @@
 package com.paw.katalogbuku.view.ui
 
+import android.Manifest
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
@@ -55,11 +60,20 @@ class AddBookActivity : AppCompatActivity() {
         }
 
         binding.btnCamera.setOnClickListener {
-            startCamera()
+            checkCameraPermission()
         }
 
         binding.buttonAdd.setOnClickListener {
             postBook()
+        }
+    }
+
+    private fun checkCameraPermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ||
+            ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE), CAMERA_PERMISSION_REQUEST_CODE)
+        } else {
+            startCamera()
         }
     }
 
@@ -102,18 +116,37 @@ class AddBookActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.Q)
     private fun postBook() {
+        val title = binding.edAddTitle.text.toString().trim()
+        val author = binding.edAddAuthor.text.toString().trim()
+        val publisher = binding.edAddPublisher.text.toString().trim()
+        val pages = binding.edAddPages.text.toString().trim()
+
+        // Validate the input fields
+        if (title.isEmpty()) {
+            binding.edAddTitle.error = "Title is required"
+            return
+        }
+        if (author.isEmpty()) {
+            binding.edAddAuthor.error = "Author is required"
+            return
+        }
+        if (publisher.isEmpty()) {
+            binding.edAddPublisher.error = "Publisher is required"
+            return
+        }
+        if (pages.isEmpty()) {
+            binding.edAddPages.error = "Pages are required"
+            return
+        }
+
         selectedImageUri?.let { uri ->
             val imageFile = uriToFile(uri, this).reduceFileImage()
-            val title = binding.edAddTitle.text.toString()
-            val author = binding.edAddAuthor.text.toString()
-            val publisher = binding.edAddPublisher.text.toString()
-            val pages = binding.edAddPages.text.toString().toInt()
 
             val uploadRequest = UploadRequest(
                 title = title,
                 author = author,
                 publisher = publisher,
-                pages = pages
+                pages = pages.toInt()
             )
 
             bookViewModel.postBook(imageFile, uploadRequest).observe(this) { response ->
@@ -155,5 +188,22 @@ class AddBookActivity : AppCompatActivity() {
             )
             startDelay = 200
         }.start()
+    }
+
+    companion object {
+        private const val CAMERA_PERMISSION_REQUEST_CODE = 1001
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int, permissions: Array<String>, grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == CAMERA_PERMISSION_REQUEST_CODE) {
+            if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                startCamera()
+            } else {
+                Toast.makeText(this, "Camera permission is required to use the camera", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }
