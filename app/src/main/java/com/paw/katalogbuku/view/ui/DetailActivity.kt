@@ -8,6 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.bumptech.glide.Glide
 import com.paw.katalogbuku.R
 import com.paw.katalogbuku.databinding.ActivityDetailBinding
 import com.paw.katalogbuku.model.remote.response.BookItem
@@ -40,8 +41,7 @@ class DetailActivity : AppCompatActivity() {
             tvDetailAuthor.text = book.author
             tvDetailPublisher.text = getString(R.string.publisher_template, book.publisher)
             tvDetailPages.text = getString(R.string.pages_template, book.pages.toString())
-            // If you have image URL and you want to load it
-            // Glide.with(this@DetailActivity).load(book.cover).into(ivDetailPhoto)
+            Glide.with(this@DetailActivity).load(book.cover).into(ivDetailPhoto)
         }
     }
 

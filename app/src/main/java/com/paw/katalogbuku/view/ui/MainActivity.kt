@@ -123,7 +123,7 @@ class MainActivity : AppCompatActivity() {
         bookViewModel.deleteBook(book.id).observe(this, Observer { result ->
             when (result) {
                 is ResultState.Loading -> {
-                    // Show loading indicator if needed
+                    binding.pbMain.visibility = View.VISIBLE
                 }
                 is ResultState.Success -> {
                     Toast.makeText(this, "Book deleted successfully", Toast.LENGTH_SHORT).show()

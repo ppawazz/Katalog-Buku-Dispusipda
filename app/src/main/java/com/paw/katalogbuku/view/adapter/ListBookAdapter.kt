@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.paw.katalogbuku.databinding.ItemBookBinding
 import com.paw.katalogbuku.model.remote.response.BookItem
 import com.paw.katalogbuku.view.ui.DetailActivity
@@ -51,6 +52,9 @@ class ListBookAdapter(
     inner class BookViewHolder(private val binding: ItemBookBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(book: BookItem) {
             with(binding) {
+                Glide.with(itemView.context)
+                    .load(book.cover) // Ganti dengan properti yang sesuai untuk URL gambar Anda
+                    .into(ivItemPhoto)
                 tvItemTitle.text = book.title
                 tvItemAuthor.text = book.author
 

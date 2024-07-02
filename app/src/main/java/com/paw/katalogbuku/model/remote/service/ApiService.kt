@@ -1,9 +1,11 @@
 package com.paw.katalogbuku.model.remote.service
 
-import com.paw.katalogbuku.model.remote.request.BookRequest
 import com.paw.katalogbuku.model.remote.response.ApiResponse
 import com.paw.katalogbuku.model.remote.response.BookItem
 import com.paw.katalogbuku.model.remote.response.UpdateResponse
+import com.paw.katalogbuku.model.remote.response.UploadResponse
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.http.*
 
 interface ApiService {
@@ -11,30 +13,19 @@ interface ApiService {
     @GET("books")
     suspend fun getAllBooks(): ApiResponse
 
+    @DELETE("books/{id}")
+    suspend fun deleteBook(@Path("id") bookId: String)
+
     @PUT("books/{id}")
     suspend fun updateBook(@Path("id") bookId: String, @Body book: BookItem): UpdateResponse
 
-    @DELETE("books/{id}")
-    suspend fun deleteBook(@Path("id") bookId: String)
+    @Multipart
+    @POST("books/addbooks")
+    suspend fun postBook(
+        @Part cover: MultipartBody.Part,
+        @Part("title") title: RequestBody,
+        @Part("author") author: RequestBody,
+        @Part("publisher") publisher: RequestBody,
+        @Part("pages") pages: RequestBody
+    ): UploadResponse
 }
-
-//    @POST("books/addbooks")
-//    suspend fun postBook(
-//        @Body request: BookRequest
-//    ): AResponse
-//
-//    @GET("books/{id}")
-//    suspend fun getBookById(
-//        @Path("id") id: String
-//    ): ApiResponse
-//
-//    @PUT("books/{id}")
-//    suspend fun updateBook(
-//        @Path("id") id: String,
-//        @Body request: BookRequest
-//    ): ApiResponse
-//
-//    @DELETE("books/{id}")
-//    suspend fun deleteBook(
-//        @Path("id") id: String
-//    ): ApiResponse

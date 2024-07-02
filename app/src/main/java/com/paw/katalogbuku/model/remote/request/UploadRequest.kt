@@ -1,7 +1,6 @@
 package com.paw.katalogbuku.model.remote.request
 
-data class BookRequest(
-    val cover: String,
+data class UploadRequest(
     val title: String,
     val author: String,
     val publisher: String,
