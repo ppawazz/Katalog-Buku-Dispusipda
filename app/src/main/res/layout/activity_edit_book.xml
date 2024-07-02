@@ -7,58 +7,18 @@
     android:layout_height="match_parent"
     tools:context=".view.ui.EditBookActivity">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cv_upload_edit"
-        android:layout_width="220dp"
-        android:layout_height="300dp"
-        android:layout_marginTop="40dp"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="4dp"
-        app:cardUseCompatPadding="true"
-        app:cardBackgroundColor="@color/cardbg"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/upload_image_edit"
-            android:layout_width="180dp"
-            android:layout_height="260dp"
-            android:alpha="0"
-            android:scaleType="fitCenter"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_image"
-            tools:alpha="100" />
-    </androidx.cardview.widget.CardView>
-
-    <Button
-        android:id="@+id/btn_camera_edit"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/tv_edit_book"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="5dp"
+        android:text="Silahkan Edit Buku"
+        android:layout_marginTop="130dp"
+        android:fontFamily="@font/overlock_sc"
         android:gravity="center"
-        android:alpha="0"
-        android:text="Camera"
-        app:layout_constraintEnd_toStartOf="@id/btn_gallery_edit"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cv_upload_edit"
-        tools:alpha="100" />
-
-    <Button
-        android:id="@+id/btn_gallery_edit"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginTop="5dp"
-        android:alpha="0"
-        android:text="Gallery"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/btn_camera_edit"
-        app:layout_constraintTop_toBottomOf="@id/cv_upload_edit"
-        tools:alpha="100" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edit_title"
@@ -66,11 +26,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="50dp"
         android:alpha="0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_gallery_edit"
+        app:layout_constraintTop_toBottomOf="@id/tv_edit_book"
         tools:alpha="100">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -91,6 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
+        android:layout_marginTop="5dp"
         android:alpha="0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -114,6 +75,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
+        android:layout_marginTop="5dp"
         android:alpha="0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -137,6 +99,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
+        android:layout_marginTop="5dp"
         android:alpha="0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -149,7 +112,7 @@
             android:layout_height="match_parent"
             android:gravity="top|start"
             android:hint="Pages"
-            android:inputType="textMultiLine"
+            android:inputType="number"
             android:maxLines="5"
             android:textAlignment="viewStart" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -160,7 +123,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="40dp"
         android:alpha="0"
         android:text="Update"
         app:layout_constraintEnd_toEndOf="parent"
