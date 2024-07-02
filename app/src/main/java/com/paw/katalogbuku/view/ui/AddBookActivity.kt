@@ -9,7 +9,6 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -47,7 +46,7 @@ class AddBookActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(binding.root)
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
@@ -69,9 +68,20 @@ class AddBookActivity : AppCompatActivity() {
     }
 
     private fun checkCameraPermission() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ||
-            ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE), CAMERA_PERMISSION_REQUEST_CODE)
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.CAMERA
+            ) != PackageManager.PERMISSION_GRANTED ||
+            ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                CAMERA_PERMISSION_REQUEST_CODE
+            )
         } else {
             startCamera()
         }
@@ -121,21 +131,20 @@ class AddBookActivity : AppCompatActivity() {
         val publisher = binding.edAddPublisher.text.toString().trim()
         val pages = binding.edAddPages.text.toString().trim()
 
-        // Validate the input fields
         if (title.isEmpty()) {
-            binding.edAddTitle.error = "Title is required"
+            binding.edAddTitle.error = getString(R.string.masukan_judul)
             return
         }
         if (author.isEmpty()) {
-            binding.edAddAuthor.error = "Author is required"
+            binding.edAddAuthor.error = getString(R.string.masukan_penulis)
             return
         }
         if (publisher.isEmpty()) {
-            binding.edAddPublisher.error = "Publisher is required"
+            binding.edAddPublisher.error = getString(R.string.masukan_penerbit)
             return
         }
         if (pages.isEmpty()) {
-            binding.edAddPages.error = "Pages are required"
+            binding.edAddPages.error = getString(R.string.masukan_jumlah_halaman)
             return
         }
 
@@ -154,19 +163,21 @@ class AddBookActivity : AppCompatActivity() {
                     is ResultState.Loading -> {
                         binding.progressIndicator.isVisible = true
                     }
+
                     is ResultState.Error -> {
                         binding.progressIndicator.isVisible = false
                         showToast(response.error)
                     }
+
                     is ResultState.Success -> {
                         binding.progressIndicator.isVisible = false
-                        showToast(response.data.message)
-                        setResult(RESULT_OK)  // Set result to indicate success
-                        finish()  // Go back to previous screen
+                        showToast(getString(R.string.success_add))
+                        setResult(RESULT_OK)
+                        finish()
                     }
                 }
             }
-        } ?: showToast("No Image")
+        } ?: showToast(getString(R.string.input_cover))
     }
 
     private fun playAnimation() {
@@ -175,8 +186,10 @@ class AddBookActivity : AppCompatActivity() {
         val tlTitle = ObjectAnimator.ofFloat(binding.addTitle, View.ALPHA, 1f).setDuration(100)
         val author = ObjectAnimator.ofFloat(binding.edAddAuthor, View.ALPHA, 1f).setDuration(100)
         val tlAuthor = ObjectAnimator.ofFloat(binding.addAuthor, View.ALPHA, 1f).setDuration(100)
-        val publisher = ObjectAnimator.ofFloat(binding.edAddPublisher, View.ALPHA, 1f).setDuration(100)
-        val tlPublisher = ObjectAnimator.ofFloat(binding.addPublisher, View.ALPHA, 1f).setDuration(100)
+        val publisher =
+            ObjectAnimator.ofFloat(binding.edAddPublisher, View.ALPHA, 1f).setDuration(100)
+        val tlPublisher =
+            ObjectAnimator.ofFloat(binding.addPublisher, View.ALPHA, 1f).setDuration(100)
         val pages = ObjectAnimator.ofFloat(binding.edAddPages, View.ALPHA, 1f).setDuration(100)
         val tlPages = ObjectAnimator.ofFloat(binding.addPages, View.ALPHA, 1f).setDuration(100)
         val camera = ObjectAnimator.ofFloat(binding.btnCamera, View.ALPHA, 1f).setDuration(100)
@@ -185,7 +198,18 @@ class AddBookActivity : AppCompatActivity() {
 
         AnimatorSet().apply {
             playTogether(
-                camera, gallery, upload, cover, title, tlTitle, author, tlAuthor, publisher, tlPublisher, pages, tlPages
+                camera,
+                gallery,
+                upload,
+                cover,
+                title,
+                tlTitle,
+                author,
+                tlAuthor,
+                publisher,
+                tlPublisher,
+                pages,
+                tlPages
             )
             startDelay = 200
         }.start()
@@ -203,7 +227,7 @@ class AddBookActivity : AppCompatActivity() {
             if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                 startCamera()
             } else {
-                Toast.makeText(this, "Camera permission is required to use the camera", Toast.LENGTH_SHORT).show()
+                showToast(getString(R.string.camera_permission))
             }
         }
     }

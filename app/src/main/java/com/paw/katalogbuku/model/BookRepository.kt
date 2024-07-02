@@ -5,11 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.paw.katalogbuku.model.remote.request.UploadRequest
 import com.paw.katalogbuku.model.remote.response.BookItem
-import com.paw.katalogbuku.model.remote.response.UpdateResponse
 import com.paw.katalogbuku.model.remote.response.UploadResponse
 import com.paw.katalogbuku.model.remote.service.ApiService
 import com.paw.katalogbuku.utils.ResultState
-import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -67,33 +65,35 @@ class BookRepository private constructor(
         }
     }
 
-    fun postBook(cover: File, uploadRequest: UploadRequest): LiveData<ResultState<UploadResponse>> = liveData {
-        emit(ResultState.Loading)
-        val requestImageFile = cover.asRequestBody("image/jpeg".toMediaTypeOrNull())
-        val coverPart = MultipartBody.Part.createFormData(
-            "cover",
-            cover.name,
-            requestImageFile
-        )
-        val title = uploadRequest.title.toRequestBody("text/plain".toMediaTypeOrNull())
-        val author = uploadRequest.author.toRequestBody("text/plain".toMediaTypeOrNull())
-        val publisher = uploadRequest.publisher.toRequestBody("text/plain".toMediaTypeOrNull())
-        val pages = uploadRequest.pages.toString().toRequestBody("text/plain".toMediaTypeOrNull())
-        try {
-            val response = apiService.postBook(coverPart, title, author, publisher, pages)
-            if (response.success) {
-                emit(ResultState.Success(response))
-            } else {
-                emit(ResultState.Error(response.message))
+    fun postBook(cover: File, uploadRequest: UploadRequest): LiveData<ResultState<UploadResponse>> =
+        liveData {
+            emit(ResultState.Loading)
+            val requestImageFile = cover.asRequestBody("image/jpeg".toMediaTypeOrNull())
+            val coverPart = MultipartBody.Part.createFormData(
+                "cover",
+                cover.name,
+                requestImageFile
+            )
+            val title = uploadRequest.title.toRequestBody("text/plain".toMediaTypeOrNull())
+            val author = uploadRequest.author.toRequestBody("text/plain".toMediaTypeOrNull())
+            val publisher = uploadRequest.publisher.toRequestBody("text/plain".toMediaTypeOrNull())
+            val pages =
+                uploadRequest.pages.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+            try {
+                val response = apiService.postBook(coverPart, title, author, publisher, pages)
+                if (response.success) {
+                    emit(ResultState.Success(response))
+                } else {
+                    emit(ResultState.Error(response.message))
+                }
+            } catch (e: HttpException) {
+                Log.d(TAG, "postBook: ${e.message.toString()}")
+                emit(ResultState.Error(e.message.toString()))
+            } catch (e: Exception) {
+                Log.d(TAG, "postBook: ${e.message.toString()}")
+                emit(ResultState.Error(e.message.toString()))
             }
-        } catch (e: HttpException) {
-            Log.d(TAG, "postBook: ${e.message.toString()}")
-            emit(ResultState.Error(e.message.toString()))
-        } catch (e: Exception) {
-            Log.d(TAG, "postBook: ${e.message.toString()}")
-            emit(ResultState.Error(e.message.toString()))
         }
-    }
 
     companion object {
         private const val TAG = "BookRepository"

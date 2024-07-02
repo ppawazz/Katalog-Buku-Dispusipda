@@ -22,7 +22,7 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         enableEdgeToEdge()
         setContentView(binding.root)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
@@ -49,7 +49,8 @@ class DetailActivity : AppCompatActivity() {
         val photo = ObjectAnimator.ofFloat(binding.ivDetailPhoto, View.ALPHA, 1f).setDuration(100)
         val title = ObjectAnimator.ofFloat(binding.tvDetailTitle, View.ALPHA, 1f).setDuration(100)
         val author = ObjectAnimator.ofFloat(binding.tvDetailAuthor, View.ALPHA, 1f).setDuration(100)
-        val publisher = ObjectAnimator.ofFloat(binding.tvDetailPublisher, View.ALPHA, 1f).setDuration(100)
+        val publisher =
+            ObjectAnimator.ofFloat(binding.tvDetailPublisher, View.ALPHA, 1f).setDuration(100)
         val pages = ObjectAnimator.ofFloat(binding.tvDetailPages, View.ALPHA, 1f).setDuration(100)
 
         AnimatorSet().apply {

@@ -6,7 +6,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.paw.katalogbuku.model.BookRepository
 import com.paw.katalogbuku.utils.Injection
 
-class ViewModelFactory(private val repository: BookRepository) : ViewModelProvider.NewInstanceFactory() {
+class ViewModelFactory(private val repository: BookRepository) :
+    ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(BookViewModel::class.java)) {
             return BookViewModel(repository) as T

@@ -14,5 +14,6 @@ class BookViewModel(private val repository: BookRepository) : ViewModel() {
 
     fun updateBook(book: BookItem) = repository.updateBook(book)
 
-    fun postBook(cover: File, uploadRequest: UploadRequest) = repository.postBook(cover, uploadRequest)
+    fun postBook(cover: File, uploadRequest: UploadRequest) =
+        repository.postBook(cover, uploadRequest)
 }

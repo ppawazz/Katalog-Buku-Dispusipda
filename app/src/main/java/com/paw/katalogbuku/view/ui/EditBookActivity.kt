@@ -11,11 +11,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
-import androidx.lifecycle.Observer
 import com.paw.katalogbuku.R
 import com.paw.katalogbuku.databinding.ActivityEditBookBinding
 import com.paw.katalogbuku.model.remote.response.BookItem
 import com.paw.katalogbuku.utils.ResultState
+import com.paw.katalogbuku.utils.showToast
 import com.paw.katalogbuku.view.viewmodel.BookViewModel
 import com.paw.katalogbuku.view.viewmodel.ViewModelFactory
 
@@ -32,7 +32,7 @@ class EditBookActivity : AppCompatActivity() {
         binding = ActivityEditBookBinding.inflate(layoutInflater)
         enableEdgeToEdge()
         setContentView(binding.root)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main_edit)) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
@@ -69,7 +69,7 @@ class EditBookActivity : AppCompatActivity() {
                         cover = it.cover
                     )
 
-                    bookViewModel.updateBook(updatedBook).observe(this, Observer { result ->
+                    bookViewModel.updateBook(updatedBook).observe(this) { result ->
                         when (result) {
                             is ResultState.Loading -> {
                                 binding.progressIndicatorEdit.isVisible = true
@@ -78,7 +78,7 @@ class EditBookActivity : AppCompatActivity() {
                             is ResultState.Success -> {
                                 Toast.makeText(
                                     this,
-                                    "Book updated successfully",
+                                    getString(R.string.success_update),
                                     Toast.LENGTH_SHORT
                                 ).show()
                                 setResult(RESULT_OK)
@@ -89,10 +89,10 @@ class EditBookActivity : AppCompatActivity() {
                                 Toast.makeText(this, result.error, Toast.LENGTH_SHORT).show()
                             }
                         }
-                    })
+                    }
                 }
             } else {
-                Toast.makeText(this, "Please fill all fields correctly", Toast.LENGTH_SHORT).show()
+                showToast(getString(R.string.fill_correctly))
             }
         }
     }

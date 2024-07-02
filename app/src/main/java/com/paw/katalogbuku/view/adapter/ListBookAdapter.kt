@@ -34,12 +34,6 @@ class ListBookAdapter(
         submitList(filteredList)
     }
 
-    fun removeBook(book: BookItem) {
-        fullBookList.remove(book)
-        submitList(fullBookList)
-        println("Book removed: ${book.title}") // Debugging log
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
         val binding = ItemBookBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return BookViewHolder(binding)
@@ -49,11 +43,12 @@ class ListBookAdapter(
         holder.bind(getItem(position))
     }
 
-    inner class BookViewHolder(private val binding: ItemBookBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class BookViewHolder(private val binding: ItemBookBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(book: BookItem) {
             with(binding) {
                 Glide.with(itemView.context)
-                    .load(book.cover) // Ganti dengan properti yang sesuai untuk URL gambar Anda
+                    .load(book.cover)
                     .into(ivItemPhoto)
                 tvItemTitle.text = book.title
                 tvItemAuthor.text = book.author
@@ -78,8 +73,11 @@ class ListBookAdapter(
     }
 
     class BookDiffCallback : DiffUtil.ItemCallback<BookItem>() {
-        override fun areItemsTheSame(oldItem: BookItem, newItem: BookItem): Boolean = oldItem.id == newItem.id
-        override fun areContentsTheSame(oldItem: BookItem, newItem: BookItem): Boolean = oldItem == newItem
+        override fun areItemsTheSame(oldItem: BookItem, newItem: BookItem): Boolean =
+            oldItem.id == newItem.id
+
+        override fun areContentsTheSame(oldItem: BookItem, newItem: BookItem): Boolean =
+            oldItem == newItem
     }
 }
 

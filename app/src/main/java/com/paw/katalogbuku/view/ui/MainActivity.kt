@@ -13,9 +13,11 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.paw.katalogbuku.R
 import com.paw.katalogbuku.databinding.ActivityMainBinding
 import com.paw.katalogbuku.model.remote.response.BookItem
 import com.paw.katalogbuku.utils.ResultState
+import com.paw.katalogbuku.utils.showToast
 import com.paw.katalogbuku.view.adapter.ListBookAdapter
 import com.paw.katalogbuku.view.viewmodel.BookViewModel
 import com.paw.katalogbuku.view.viewmodel.ViewModelFactory
@@ -59,11 +61,19 @@ class MainActivity : AppCompatActivity() {
             }
 
             searchEditText.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
+
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                     bookAdapter.filter(s.toString())
                     clearQueryButton.visibility = if (s.isNullOrEmpty()) View.GONE else View.VISIBLE
                 }
+
                 override fun afterTextChanged(s: Editable?) {}
             })
 
@@ -92,10 +102,12 @@ class MainActivity : AppCompatActivity() {
                 is ResultState.Loading -> {
                     binding.pbMain.visibility = View.VISIBLE
                 }
+
                 is ResultState.Success -> {
                     binding.pbMain.visibility = View.GONE
                     bookAdapter.submitFullList(result.data)
                 }
+
                 is ResultState.Error -> {
                     binding.pbMain.visibility = View.GONE
                     Toast.makeText(this, result.error, Toast.LENGTH_SHORT).show()
@@ -112,10 +124,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun confirmDeleteBook(book: BookItem) {
         AlertDialog.Builder(this)
-            .setTitle("Konfirmasi Hapus")
-            .setMessage("Apakah Anda yakin ingin menghapus buku ini?")
-            .setPositiveButton("Ya") { _, _ -> deleteBook(book) }
-            .setNegativeButton("Tidak", null)
+            .setTitle(getString(R.string.remove_book))
+            .setMessage(getString(R.string.sure_remove))
+            .setPositiveButton(getString(R.string.yes)) { _, _ -> deleteBook(book) }
+            .setNegativeButton(getString(R.string.no), null)
             .show()
     }
 
@@ -125,10 +137,12 @@ class MainActivity : AppCompatActivity() {
                 is ResultState.Loading -> {
                     binding.pbMain.visibility = View.VISIBLE
                 }
+
                 is ResultState.Success -> {
-                    Toast.makeText(this, "Book deleted successfully", Toast.LENGTH_SHORT).show()
+                    showToast(getString(R.string.success_delete))
                     refreshBookList()
                 }
+
                 is ResultState.Error -> {
                     Toast.makeText(this, result.error, Toast.LENGTH_SHORT).show()
                 }
@@ -137,21 +151,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun refreshBookList() {
-        bookViewModel.getAllBooks().observe(this, Observer { result ->
+        bookViewModel.getAllBooks().observe(this) { result ->
             when (result) {
                 is ResultState.Loading -> {
                     binding.pbMain.visibility = View.VISIBLE
                 }
+
                 is ResultState.Success -> {
                     binding.pbMain.visibility = View.GONE
                     bookAdapter.submitFullList(result.data)
                 }
+
                 is ResultState.Error -> {
                     binding.pbMain.visibility = View.GONE
                     Toast.makeText(this, result.error, Toast.LENGTH_SHORT).show()
                 }
             }
-        })
+        }
     }
 
     @Deprecated("This method has been deprecated in favor of using the Activity Result API")

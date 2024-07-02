@@ -11,22 +11,22 @@
         android:id="@+id/cv_upload"
         android:layout_width="220dp"
         android:layout_height="300dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
+        app:cardBackgroundColor="@color/cardbg"
         app:cardCornerRadius="8dp"
         app:cardElevation="4dp"
         app:cardUseCompatPadding="true"
-        app:cardBackgroundColor="@color/cardbg"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/upload_image"
             android:layout_width="180dp"
             android:layout_height="260dp"
+            android:layout_gravity="center"
             android:alpha="0"
             android:scaleType="fitCenter"
-            android:layout_gravity="center"
             android:src="@drawable/ic_image"
             tools:alpha="100" />
     </androidx.cardview.widget.CardView>
@@ -36,11 +36,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginTop="5dp"
-        android:gravity="center"
+        android:layout_marginEnd="8dp"
         android:alpha="0"
-        android:text="Camera"
+        android:gravity="center"
+        android:text="@string/by_cam"
         app:layout_constraintEnd_toStartOf="@id/btn_gallery"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cv_upload"
@@ -51,10 +51,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="15dp"
         android:layout_marginTop="5dp"
+        android:layout_marginEnd="15dp"
         android:alpha="0"
-        android:text="Gallery"
+        android:text="@string/by_galeri"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btn_camera"
         app:layout_constraintTop_toBottomOf="@id/cv_upload"
@@ -65,8 +65,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
         android:layout_marginTop="5dp"
+        android:layout_marginEnd="15dp"
         android:alpha="0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -78,7 +78,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="top|start"
-            android:hint="Book Title"
+            android:hint="@string/input_title"
             android:inputType="textMultiLine"
             android:maxLines="5"
             android:textAlignment="viewStart" />
@@ -97,15 +97,15 @@
         app:layout_constraintTop_toBottomOf="@id/add_title"
         tools:alpha="100">
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/ed_add_author"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="top|start"
-        android:hint="Author Name"
-        android:inputType="textMultiLine"
-        android:maxLines="5"
-        android:textAlignment="viewStart" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/ed_add_author"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="top|start"
+            android:hint="@string/input_author"
+            android:inputType="text"
+            android:maxLines="5"
+            android:textAlignment="viewStart" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -125,8 +125,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="top|start"
-            android:hint="Publisher Name"
-            android:inputType="textMultiLine"
+            android:hint="@string/input_publisher"
+            android:inputType="text"
             android:maxLines="5"
             android:textAlignment="viewStart" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -148,7 +148,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="top|start"
-            android:hint="Pages"
+            android:hint="@string/input_pages"
             android:inputType="number"
             android:maxLines="5"
             android:textAlignment="viewStart" />
@@ -159,10 +159,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
         android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
         android:alpha="0"
-        android:text="Upload"
+        android:text="@string/btn_add_book"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/add_pages"
