@@ -66,4 +66,4 @@ The application is built using the **Model-View-ViewModel (MVVM)** architecture,
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/username/mobile-library-app.git
+   [https://github.com/ppawazz/Katalog-Buku-Dispusipda.git]
