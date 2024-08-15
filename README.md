@@ -12,15 +12,17 @@ Welcome to the GitHub repository for the **Mobile Library Application**, develop
 
 ## Application Layout
 
-![Splash](https://github.com/user-attachments/assets/443e2ca9-d2a7-4ac8-aa73-08a025e5c298)
-![User](https://github.com/user-attachments/assets/da60b1a9-75d3-4982-a50b-ccfba3fb8406)
-![MainUser](https://github.com/user-attachments/assets/931fe756-850a-4418-b5d3-42e4f1ab54ea)
-![Detail](https://github.com/user-attachments/assets/5aea9d42-977c-4932-b1fb-c8610968a366)
-![Login](https://github.com/user-attachments/assets/107c4c69-a4dc-412d-82f4-e7fae2dcedd0)
-![MainAdmin](https://github.com/user-attachments/assets/2ba2ed06-dc3f-4cd8-9a33-8f77dbaff448)
-![AddBook](https://github.com/user-attachments/assets/9c73087c-f4de-404c-9bd9-9d5052ee61c7)
-![UpdateBook](https://github.com/user-attachments/assets/cdb837c3-1f20-495e-9a37-6a020b5ef430)
-![DeleteBook](https://github.com/user-attachments/assets/df40412c-e1d7-41f2-8887-12dc2a5de4aa)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/443e2ca9-d2a7-4ac8-aa73-08a025e5c298" width="200" alt="Splash">
+  <img src="https://github.com/user-attachments/assets/da60b1a9-75d3-4982-a50b-ccfba3fb8406" width="200" alt="User">
+  <img src="https://github.com/user-attachments/assets/931fe756-850a-4418-b5d3-42e4f1ab54ea" width="200" alt="Main User">
+  <img src="https://github.com/user-attachments/assets/5aea9d42-977c-4932-b1fb-c8610968a366" width="200" alt="Detail">
+  <img src="https://github.com/user-attachments/assets/107c4c69-a4dc-412d-82f4-e7fae2dcedd0" width="200" alt="Login">
+  <img src="https://github.com/user-attachments/assets/2ba2ed06-dc3f-4cd8-9a33-8f77dbaff448" width="200" alt="Main Admin">
+  <img src="https://github.com/user-attachments/assets/9c73087c-f4de-404c-9bd9-9d5052ee61c7" width="200" alt="Add Book">
+  <img src="https://github.com/user-attachments/assets/cdb837c3-1f20-495e-9a37-6a020b5ef430" width="200" alt="Update Book">
+  <img src="https://github.com/user-attachments/assets/df40412c-e1d7-41f2-8887-12dc2a5de4aa" width="200" alt="Delete Book">
+</p>
 
 ## Libraries and Technologies Used
 
