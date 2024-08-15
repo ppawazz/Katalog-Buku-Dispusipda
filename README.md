@@ -1,4 +1,4 @@
-# Internship Project: Mobile Library App for Dinas Perpustakaan dan Arsip Kota Sukabumi
+# Internship Project: Katalog Buku Mobile App for Dinas Perpustakaan dan Arsip Kota Sukabumi
 
 Welcome to the GitHub repository for the **Mobile Library Application**, developed as part of an internship project with **Dinas Perpustakaan dan Arsip Kota Sukabumi**. This mobile application is designed to help users browse, manage, and interact with the library's catalog of books. The app is built using **Android Studio** and **Kotlin** with a focus on clean architecture and modern Android development practices.
 
@@ -21,7 +21,6 @@ Welcome to the GitHub repository for the **Mobile Library Application**, develop
   <img src="https://github.com/user-attachments/assets/2ba2ed06-dc3f-4cd8-9a33-8f77dbaff448" width="200" alt="Main Admin">
   <img src="https://github.com/user-attachments/assets/9c73087c-f4de-404c-9bd9-9d5052ee61c7" width="200" alt="Add Book">
   <img src="https://github.com/user-attachments/assets/cdb837c3-1f20-495e-9a37-6a020b5ef430" width="200" alt="Update Book">
-  <img src="https://github.com/user-attachments/assets/df40412c-e1d7-41f2-8887-12dc2a5de4aa" width="200" alt="Delete Book">
 </p>
 
 ## Libraries and Technologies Used
